@@ -1,17 +1,12 @@
-input=True
-while input:
-    prompt1=input('Can I make this stupid thing work?').lower()
-
-    if prompt1 == 'yes':
-       raw_input('Hooray, I can!')
-       input=False
-       break
-    elif prompt1 == 'no':
-       raw_input('Well I did anyway!')
-       input=False
-       break
-    else:
-       raw_input('Huh?') #an answer that wouldn't be yes or no
-
-
-
+import pyttsx3
+import PyPDF2
+book = open('sample.pdf', 'rb')
+pdfReader = PyPDF2.PdfFileReader(book)
+pages = pdfReader.numPages
+print(pages)
+bot = pyttsx3.init()
+for num in range(0, pages):
+    page = pdfReader.getPage(0)
+    text = page.extractText()
+    bot.say(text)
+    bot.runAndWait()

@@ -1,11 +1,13 @@
 import pyttsx3
 import os
 import webbrowser 
+import PyPDF2
 
 # driver code
 
 # create object and assign voice
 engine = pyttsx3.init()
+
 voices = engine.getProperty('voices')
 x = ""
 print("please enter 0 for male and 1 for female voice:")
@@ -33,7 +35,7 @@ engine.say('Hello '+username ,)
 print("    My name is suraj ,I make this tool With this help of tool you can open below things.......")
 
 print(
-    "\n\t 1.MICROSOFT WORD \t 2.MICROSOFT POWERPOINT \n\t 3.MICROSOFT EXCEL \t 4.GOOGLE CHROME \n\t 5.VLC PLAYER     \t 6.ADOBE ILLUSTRATOR \n\t 7.ADOBE PHOTOSHOP \t 8.MICROSOFT EDGE \n\t 9.NOTEPAD        \t 10.TELEGRAM \n\t 11.PAINT \n\n\t\t   0. FOR EXIT")
+    "\n\t0.E-book Reader\n\t 1.MICROSOFT WORD \t 2.MICROSOFT POWERPOINT \n\t 3.MICROSOFT EXCEL \t 4.GOOGLE CHROME \n\t 5.VLC PLAYER     \t 6.ADOBE ILLUSTRATOR \n\t 7.ADOBE PHOTOSHOP \t 8.MICROSOFT EDGE \n\t 9.NOTEPAD        \t 10.TELEGRAM \n\t 11.PAINT \n\n\t\t   0. FOR EXIT")
 
 print("\n        (YOU CAN USE NUMBER OR YOU CAN DO CHAT LIKE 'OPEN NOTEBOOK' etc....)")
 
@@ -58,6 +60,19 @@ while True:
         print(".")
         continue
 
+    elif ("READ"==p )or ("0"==p):
+        book = open('dd.pdf', 'rb')
+        pdfReader = PyPDF2.PdfFileReader(book)
+        pages = pdfReader.numPages
+        print(pages)
+        pyttsx3.speak("reading the book.")
+
+        for num in range(0, pages):
+            page = pdfReader.getPage(num)
+            text = page.extractText()
+
+            engine.say(text)
+            engine.runAndWait()
     # assignements for diffenet applications == the menu
     elif ("GOOGLE" == p) or ("SEARCH" == p) or ("WEB BROWSER" == p) or ("CHROME" == p) or ("BROWSER" == p) or (
             "4" == p):
